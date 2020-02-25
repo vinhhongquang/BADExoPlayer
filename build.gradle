@@ -27,6 +27,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://jitpack.io"
+            credentials { username authToken }
+        }
     }
     project.ext {
         exoplayerPublishEnabled = false
