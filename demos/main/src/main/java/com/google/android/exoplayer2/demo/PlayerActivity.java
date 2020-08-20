@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.C.ContentType;
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackPreparer;
@@ -377,7 +378,7 @@ public class PlayerActivity extends AppCompatActivity
       lastSeenTrackGroupArray = null;
 
       player =
-          new SimpleExoPlayer.Builder(/* context= */ this, renderersFactory)
+          new SimpleExoPlayer.Builder(/* context= */ this,renderersFactory,new DefaultLoadControl.Builder().setBufferDurationsMs(10000, 10000, 0, 0).createDefaultLoadControl())
               .setTrackSelector(trackSelector)
               .build();
       player.addListener(new PlayerEventListener());
@@ -519,6 +520,7 @@ public class PlayerActivity extends AppCompatActivity
     switch (type) {
       case C.TYPE_DASH:
         return new DashMediaSource.Factory(dataSourceFactory)
+            .setLivePresentationDelayMs(0, true)
             .setDrmSessionManager(drmSessionManager)
             .createMediaSource(uri);
       case C.TYPE_SS:

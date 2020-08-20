@@ -148,6 +148,20 @@ public class SimpleExoPlayer extends BasePlayer
           Clock.DEFAULT);
     }
 
+    public Builder(Context context, RenderersFactory renderersFactory, DefaultLoadControl defaultLoadControl) {
+      this(
+          context,
+          renderersFactory,
+          new DefaultTrackSelector(context),
+          defaultLoadControl,
+          DefaultBandwidthMeter.getSingletonInstance(context),
+          Util.getLooper(),
+          new AnalyticsCollector(Clock.DEFAULT),
+          /* useLazyPreparation= */ true,
+          Clock.DEFAULT);
+    }
+
+
     /**
      * Creates a builder with the specified custom components.
      *
