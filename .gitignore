@@ -75,4 +75,3 @@ extensions/cronet/jniLibs/*
 !extensions/cronet/jniLibs/README.md
 extensions/cronet/libs/*
 !extensions/cronet/libs/README.md
-library/core/src/test/assets/ts/elephants_dream.mpg
