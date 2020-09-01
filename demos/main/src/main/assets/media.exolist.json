@@ -513,6 +513,10 @@
         "name": "Iceland (360 top-bottom stereo ts)",
         "uri": "https://storage.googleapis.com/exoplayer-test-media-1/360/iceland0.ts",
         "spherical_stereo_mode": "top_bottom"
+      },
+      {
+        "name": "Paris By Night",
+        "uri": "http://download032.fshare.vn/dl/tvFsTEAcfxpvAje9hjQifEFUMS099wtCp7GOBqG4YaWTwZ-O4H-WGMxZXkaucdDKxZKuNrdKfwRHFoE0/118_Paris.by.night.duc%20Huy%2050%20Nam%20Am.nhac.2016%20Hd720p%20Bluray%20Dd2.0%20X264-Coti.mkv"
       }
     ]
   },
