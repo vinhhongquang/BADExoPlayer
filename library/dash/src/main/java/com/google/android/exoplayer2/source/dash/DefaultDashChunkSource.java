@@ -772,7 +772,7 @@ public class DefaultDashChunkSource implements DashChunkSource {
         // The index is itself unbounded. We need to use the current time to calculate the range of
         // available segments.
         long liveEdgeTimeUs = nowUnixTimeUs - C.msToUs(manifest.availabilityStartTimeMs);
-        liveEdgeTimeUs += 4000000; // Hack to account for the not-parsed availabilityTimeOffset
+        liveEdgeTimeUs += 2000000; // Hack to account for the not-parsed availabilityTimeOffset
         long periodStartUs = C.msToUs(manifest.getPeriod(periodIndex).startMs);
         long liveEdgeTimeInPeriodUs = liveEdgeTimeUs - periodStartUs;
         // getSegmentNum(liveEdgeTimeInPeriodUs) will not be completed yet, so subtract one to get
