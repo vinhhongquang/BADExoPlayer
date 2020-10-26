@@ -373,7 +373,7 @@ public final class DashMediaSource extends BaseMediaSource {
    * MediaSourceCaller#onSourceInfoRefreshed(MediaSource, Timeline)} when the source's {@link
    * Timeline} is changing dynamically (for example, for incomplete live streams).
    */
-  private static final int NOTIFY_MANIFEST_INTERVAL_MS = 100;
+  private static final int NOTIFY_MANIFEST_INTERVAL_MS = 500;
   /**
    * The minimum default start position for live streams, relative to the start of the live window.
    */
@@ -1267,34 +1267,34 @@ public final class DashMediaSource extends BaseMediaSource {
         }
       }
       // Attempt to snap to the start of the corresponding video segment.
-//      int periodIndex = 0;
-//      long defaultStartPositionInPeriodUs = offsetInFirstPeriodUs + windowDefaultStartPositionUs;
-//      long periodDurationUs = manifest.getPeriodDurationUs(periodIndex);
-//      while (periodIndex < manifest.getPeriodCount() - 1
-//          && defaultStartPositionInPeriodUs >= periodDurationUs) {
-//        defaultStartPositionInPeriodUs -= periodDurationUs;
-//        periodIndex++;
-//        periodDurationUs = manifest.getPeriodDurationUs(periodIndex);
-//      }
-//      com.google.android.exoplayer2.source.dash.manifest.Period period =
-//          manifest.getPeriod(periodIndex);
-//      int videoAdaptationSetIndex = period.getAdaptationSetIndex(C.TRACK_TYPE_VIDEO);
-//      if (videoAdaptationSetIndex == C.INDEX_UNSET) {
-//        // No video adaptation set for snapping.
-//        return windowDefaultStartPositionUs;
-//      }
-//      // If there are multiple video adaptation sets with unaligned segments, the initial time may
-//      // not correspond to the start of a segment in both, but this is an edge case.
-//      DashSegmentIndex snapIndex = period.adaptationSets.get(videoAdaptationSetIndex)
-//          .representations.get(0).getIndex();
-//      if (snapIndex == null || snapIndex.getSegmentCount(periodDurationUs) == 0) {
-//        // Video adaptation set does not include a non-empty index for snapping.
-//        return windowDefaultStartPositionUs;
-//      }
-//      long segmentNum = snapIndex.getSegmentNum(defaultStartPositionInPeriodUs, periodDurationUs);
-//      return windowDefaultStartPositionUs + snapIndex.getTimeUs(segmentNum)
-//          - defaultStartPositionInPeriodUs;
-      return windowDefaultStartPositionUs;
+      int periodIndex = 0;
+      long defaultStartPositionInPeriodUs = offsetInFirstPeriodUs + windowDefaultStartPositionUs;
+      long periodDurationUs = manifest.getPeriodDurationUs(periodIndex);
+      while (periodIndex < manifest.getPeriodCount() - 1
+          && defaultStartPositionInPeriodUs >= periodDurationUs) {
+        defaultStartPositionInPeriodUs -= periodDurationUs;
+        periodIndex++;
+        periodDurationUs = manifest.getPeriodDurationUs(periodIndex);
+      }
+      com.google.android.exoplayer2.source.dash.manifest.Period period =
+          manifest.getPeriod(periodIndex);
+      int videoAdaptationSetIndex = period.getAdaptationSetIndex(C.TRACK_TYPE_VIDEO);
+      if (videoAdaptationSetIndex == C.INDEX_UNSET) {
+        // No video adaptation set for snapping.
+        return windowDefaultStartPositionUs;
+      }
+      // If there are multiple video adaptation sets with unaligned segments, the initial time may
+      // not correspond to the start of a segment in both, but this is an edge case.
+      DashSegmentIndex snapIndex = period.adaptationSets.get(videoAdaptationSetIndex)
+          .representations.get(0).getIndex();
+      if (snapIndex == null || snapIndex.getSegmentCount(periodDurationUs) == 0) {
+        // Video adaptation set does not include a non-empty index for snapping.
+        return windowDefaultStartPositionUs;
+      }
+      long segmentNum = snapIndex.getSegmentNum(defaultStartPositionInPeriodUs, periodDurationUs);
+      return windowDefaultStartPositionUs + snapIndex.getTimeUs(segmentNum)
+          - defaultStartPositionInPeriodUs;
+//      return windowDefaultStartPositionUs;
     }
 
     @Override
