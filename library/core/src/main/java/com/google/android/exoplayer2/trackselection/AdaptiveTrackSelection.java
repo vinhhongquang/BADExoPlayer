@@ -25,6 +25,7 @@ import com.google.android.exoplayer2.source.chunk.MediaChunkIterator;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Clock;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import java.util.ArrayList;
 import java.util.List;
@@ -286,8 +287,8 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
   public static final int DEFAULT_MIN_DURATION_FOR_QUALITY_INCREASE_MS = 10000;
   public static final int DEFAULT_MAX_DURATION_FOR_QUALITY_DECREASE_MS = 25000;
   public static final int DEFAULT_MIN_DURATION_TO_RETAIN_AFTER_DISCARD_MS = 25000;
-  public static final float DEFAULT_BANDWIDTH_FRACTION = 0.5f;
-  public static final float DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE = 0.75f;
+  public static final float DEFAULT_BANDWIDTH_FRACTION = 0.75f;
+  public static final float DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE = 0.4f;
   public static final long DEFAULT_MIN_TIME_BETWEEN_BUFFER_REEVALUTATION_MS = 2000;
 
   private final BandwidthProvider bandwidthProvider;
@@ -431,17 +432,20 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
       List<? extends MediaChunk> queue,
       MediaChunkIterator[] mediaChunkIterators) {
     long nowMs = clock.elapsedRealtime();
-
     // Make initial selection
     if (reason == C.SELECTION_REASON_UNKNOWN) {
       reason = C.SELECTION_REASON_INITIAL;
-      selectedIndex = determineIdealSelectedIndex(nowMs);
+      if (formats.length > 0) selectedIndex = formats.length - 1;
+      else selectedIndex = determineIdealSelectedIndex(nowMs);
+      Log.d("EventLogger", "downstreamFormat init: (reason: " + reason + ", selectedIndex: " + selectedIndex + ")");
       return;
     }
 
     // Stash the current selection, then make a new one.
     int currentSelectedIndex = selectedIndex;
     selectedIndex = determineIdealSelectedIndex(nowMs);
+    // Log debug
+    Log.d("EventLogger", "downstreamFormat current: (reason: " + reason + " , currentSelectedIndex: " + currentSelectedIndex + ", selectedIndex: " + selectedIndex + ")");
     if (selectedIndex == currentSelectedIndex) {
       return;
     }
@@ -450,8 +454,10 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
       // Revert back to the current selection if conditions are not suitable for switching.
       Format currentFormat = getFormat(currentSelectedIndex);
       Format selectedFormat = getFormat(selectedIndex);
+      long minDuration = minDurationForQualityIncreaseUs(availableDurationUs);
+      Log.d("EventLogger", "downstreamFormat change: " + selectedFormat.bitrate + ", " +  currentFormat.bitrate + ", " + bufferedDurationUs + ", " + minDuration);
       if (selectedFormat.bitrate > currentFormat.bitrate
-          && bufferedDurationUs < minDurationForQualityIncreaseUs(availableDurationUs)) {
+          && bufferedDurationUs < minDuration) {
         // The selected track is a higher quality, but we have insufficient buffer to safely switch
         // up. Defer switching up for now.
         selectedIndex = currentSelectedIndex;

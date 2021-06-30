@@ -48,7 +48,7 @@ public abstract class BaseTrackSelection implements TrackSelection {
   /**
    * The {@link Format}s of the selected tracks, in order of decreasing bandwidth.
    */
-  private final Format[] formats;
+  protected final Format[] formats;
   /**
    * Selected track blacklist timestamps, in order of decreasing bandwidth.
    */

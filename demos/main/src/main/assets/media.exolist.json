@@ -3,24 +3,20 @@
     "name": "YouTube DASH",
     "samples": [
       {
+        "name": "Testing",
+        "uri": "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+      },
+      {
         "name": "Google Glass H264 (MP4)",
-        "uri": "https://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0",
-        "extension": "mpd"
+        "uri": "https://cph-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
       },
       {
         "name": "Google Play H264 (MP4)",
-        "uri": "https://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=A2716F75795F5D2AF0E88962FFCD10DB79384F29.84308FF04844498CE6FBCE4731507882B8307798&key=ik0",
-        "extension": "mpd"
-      },
-      {
-        "name": "Google Glass VP9 (WebM)",
-        "uri": "https://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,webm2_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=249B04F79E984D7F86B4D8DB48AE6FAF41C17AB3.7B9F0EC0505E1566E59B8E488E9419F253DDF413&key=ik0",
-        "extension": "mpd"
+        "uri": "https://moctobpltc-i.akamaihd.net/hls/live/571329/eight/playlist.m3u8"
       },
       {
         "name": "Google Play VP9 (WebM)",
-        "uri": "https://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?as=fmp4_audio_clear,webm2_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=B1C2A74783AC1CC4865EB312D7DD2D48230CC9FD.BD153B9882175F1F94BFE5141A5482313EA38E8D&key=ik0",
-        "extension": "mpd"
+        "uri": "https://livecdn.fptplay.net/hda1/vtv3hd_hls.smil/playlist.m3u8?token=eyJjaGFubmVsX2lkIjogInZ0djMtaGQiLCAicm1pcCI6ICIxMDAuMTE5LjIzMi4yMzMiLCAidXNlcl9pZCI6IDIwMjQ0NDgsICJ0aW1lc3RhbXAiOiAxNjI0OTYxMzU1fQ"
       }
     ]
   },
@@ -264,7 +260,7 @@
     "samples": [
       {
         "name": "Apple 4x3 basic stream",
-        "uri": "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8"
+        "uri": "https://livecdn.fptplay.net/hda1/vtv3hd_hls.smil/playlist.m3u8?token=eyJjaGFubmVsX2lkIjogInZ0djMtaGQiLCAicm1pcCI6ICIxMDAuMTE5LjIzMi4yMzMiLCAidXNlcl9pZCI6IDIwMjQ0NDgsICJ0aW1lc3RhbXAiOiAxNjI0OTYxMzU1fQ"
       },
       {
         "name": "Apple 16x9 basic stream",
