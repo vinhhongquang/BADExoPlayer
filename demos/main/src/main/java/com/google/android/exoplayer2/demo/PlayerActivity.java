@@ -378,7 +378,7 @@ public class PlayerActivity extends AppCompatActivity
       lastSeenTrackGroupArray = null;
 
       player =
-          new SimpleExoPlayer.Builder(/* context= */ this,renderersFactory,new DefaultLoadControl.Builder().setBufferDurationsMs(10000, 10000, 0, 0).createDefaultLoadControl())
+          new SimpleExoPlayer.Builder(/* context= */ this,renderersFactory)
               .setTrackSelector(trackSelector)
               .build();
       player.addListener(new PlayerEventListener());

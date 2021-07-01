@@ -3,12 +3,12 @@
     "name": "YouTube DASH",
     "samples": [
       {
-        "name": "Testing",
-        "uri": "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+        "name": "VTV3-HD",
+        "uri": "https://livecdn.fptplay.net/hda1/vtv3hd_hls.smil/playlist.m3u8?token=eyJjaGFubmVsX2lkIjogInZ0djMtaGQiLCAicm1pcCI6ICIxMDAuMTE5LjIzMi4yMzMiLCAidXNlcl9pZCI6IDIwMjQ0NDgsICJ0aW1lc3RhbXAiOiAxNjI0OTYxMzU1fQ"
       },
       {
-        "name": "Google Glass H264 (MP4)",
-        "uri": "https://cph-msl.akamaized.net/hls/live/2000341/test/master.m3u8"
+        "name": "VOD",
+        "uri": "http://vod05-cdn.fptplay.net/ovod/_definst_/smil:mp4/encoded/20210628/be_together_ep01a_logo/4a03fce481d701acf2ee50c64bd32a1c.smil/playlist.m3u8?token=eyJoYXNoX3ZhbHVlIjogImEzMzg0YzZjMjViMjRjOWNhNWY0ZmIxOGI4ZDBlY2MyIiwgInZpZGVvX2lkIjogIjYwYzMyZGIxMjA4OWJkMjYyMGFjMzk4OCIsICJzZXJ2ZXJfdGltZSI6IDE2MjUxMjgxNTAsICJ2YWxpZF9taW51dGVzIjogNzIwfQ"
       },
       {
         "name": "Google Play H264 (MP4)",
