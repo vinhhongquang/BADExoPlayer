@@ -11,12 +11,12 @@
         "uri": "http://vod05-cdn.fptplay.net/ovod/_definst_/smil:mp4/encoded/20210628/be_together_ep01a_logo/4a03fce481d701acf2ee50c64bd32a1c.smil/playlist.m3u8?token=eyJoYXNoX3ZhbHVlIjogImEzMzg0YzZjMjViMjRjOWNhNWY0ZmIxOGI4ZDBlY2MyIiwgInZpZGVvX2lkIjogIjYwYzMyZGIxMjA4OWJkMjYyMGFjMzk4OCIsICJzZXJ2ZXJfdGltZSI6IDE2MjUxMjgxNTAsICJ2YWxpZF9taW51dGVzIjogNzIwfQ"
       },
       {
-        "name": "Google Play H264 (MP4)",
-        "uri": "https://moctobpltc-i.akamaihd.net/hls/live/571329/eight/playlist.m3u8"
+        "name": "Clip Tv - Vod",
+        "uri": "https://30cb03df.vws.vegacdn.vn/DycG2vGlTY8i1Gt483ot_w/1625610138/cliptv_vod_v2/_definst_/amlst:cmc/media2/0/0/0/311/159262.mp4:levels*5_4_3_2/playlist.m3u8?user=MDkzODI2NjAwMw=="
       },
       {
-        "name": "Google Play VP9 (WebM)",
-        "uri": "https://livecdn.fptplay.net/hda1/vtv3hd_hls.smil/playlist.m3u8?token=eyJjaGFubmVsX2lkIjogInZ0djMtaGQiLCAicm1pcCI6ICIxMDAuMTE5LjIzMi4yMzMiLCAidXNlcl9pZCI6IDIwMjQ0NDgsICJ0aW1lc3RhbXAiOiAxNjI0OTYxMzU1fQ"
+        "name": "Clip Tv - Live",
+        "uri": "https://106135605.vws.vegacdn.vn/694bbf4166b238c9f248e0aa018bd768a7a59adf/1625652651/cliptv_live/amlst:vtv1hd1/playlist.m3u8?user=MDkzODI2NjAwMw=="
       }
     ]
   },
