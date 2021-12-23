@@ -40,6 +40,7 @@ import com.google.android.exoplayer2.DefaultControlDispatcher;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.PreviousNextDispatcher;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.NotificationUtil;
@@ -383,6 +384,7 @@ public class PlayerNotificationManager {
   @Nullable private ArrayList<NotificationCompat.Action> builderActions;
   @Nullable private Player player;
   @Nullable private PlaybackPreparer playbackPreparer;
+  @Nullable private PreviousNextDispatcher previousNextDispatcher;
   private ControlDispatcher controlDispatcher;
   private boolean isNotificationStarted;
   private int currentNotificationTag;
@@ -391,6 +393,8 @@ public class PlayerNotificationManager {
   private boolean useNavigationActions;
   private boolean useNavigationActionsInCompactView;
   private boolean usePlayPauseActions;
+  private boolean usePreviousActions;
+  private boolean useNextActions;
   private boolean useStopAction;
   private long fastForwardMs;
   private long rewindMs;
@@ -708,6 +712,14 @@ public class PlayerNotificationManager {
     this.controlDispatcher =
         controlDispatcher != null ? controlDispatcher : new DefaultControlDispatcher();
   }
+  /**
+   * Sets the {@link PreviousNextDispatcher}.
+   *
+   * @param previousNextDispatcher The {@link PreviousNextDispatcher}
+   */
+  public final void setControlDispatcher(PreviousNextDispatcher previousNextDispatcher) {
+    this.previousNextDispatcher = previousNextDispatcher;
+  }
 
   /**
    * Sets the {@link NotificationListener}.
@@ -789,6 +801,30 @@ public class PlayerNotificationManager {
   public final void setUsePlayPauseActions(boolean usePlayPauseActions) {
     if (this.usePlayPauseActions != usePlayPauseActions) {
       this.usePlayPauseActions = usePlayPauseActions;
+      invalidate();
+    }
+  }
+
+  /**
+   * Sets whether the previous actions should be used.
+   *
+   * @param usePreviousActions Whether to use previous actions.
+   */
+  public final void setUsePreviousActions(boolean usePreviousActions) {
+    if (this.usePreviousActions != usePreviousActions) {
+      this.usePreviousActions = usePreviousActions;
+      invalidate();
+    }
+  }
+
+  /**
+   * Sets whether the next actions should be used.
+   *
+   * @param useNextActions Whether to use play and pause actions.
+   */
+  public final void setUseNextActions(boolean useNextActions) {
+    if (this.useNextActions != useNextActions) {
+      this.useNextActions = useNextActions;
       invalidate();
     }
   }
@@ -1147,10 +1183,10 @@ public class PlayerNotificationManager {
     Timeline timeline = player.getCurrentTimeline();
     if (!timeline.isEmpty() && !player.isPlayingAd()) {
       timeline.getWindow(player.getCurrentWindowIndex(), window);
-      enablePrevious = window.isSeekable || !window.isDynamic || player.hasPrevious();
+      enablePrevious = usePreviousActions || window.isSeekable || !window.isDynamic || player.hasPrevious();
       enableRewind = rewindMs > 0;
       enableFastForward = fastForwardMs > 0;
-      enableNext = window.isDynamic || player.hasNext();
+      enableNext = useNextActions || window.isDynamic || player.hasNext();
     }
 
     List<String> stringActions = new ArrayList<>();
@@ -1440,13 +1476,21 @@ public class PlayerNotificationManager {
       } else if (ACTION_PAUSE.equals(action)) {
         controlDispatcher.dispatchSetPlayWhenReady(player, /* playWhenReady= */ false);
       } else if (ACTION_PREVIOUS.equals(action)) {
-        previous(player);
+        if (previousNextDispatcher != null){
+          previousNextDispatcher.dispatcherPrevious(player);
+        }else {
+          previous(player);
+        }
       } else if (ACTION_REWIND.equals(action)) {
         rewind(player);
       } else if (ACTION_FAST_FORWARD.equals(action)) {
         fastForward(player);
       } else if (ACTION_NEXT.equals(action)) {
-        next(player);
+        if (previousNextDispatcher != null){
+          previousNextDispatcher.dispatcherNext(player);
+        }else {
+          next(player);
+        }
       } else if (ACTION_STOP.equals(action)) {
         controlDispatcher.dispatchStop(player, /* reset= */ true);
       } else if (ACTION_DISMISS.equals(action)) {
