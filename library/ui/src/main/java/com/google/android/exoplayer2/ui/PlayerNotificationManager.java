@@ -1211,10 +1211,10 @@ public class PlayerNotificationManager {
     Timeline timeline = player.getCurrentTimeline();
     if (!timeline.isEmpty() && !player.isPlayingAd()) {
       timeline.getWindow(player.getCurrentWindowIndex(), window);
-      enablePrevious = usePreviousActions && (window.isSeekable || !window.isDynamic || player.hasPrevious());
+      enablePrevious = usePreviousActions;
       enableRewind = useRewindActions && rewindMs > 0;
       enableFastForward = useForwardActions && fastForwardMs > 0;
-      enableNext = useNextActions && (window.isDynamic || player.hasNext());
+      enableNext = useNextActions;
     }
 
     List<String> stringActions = new ArrayList<>();
