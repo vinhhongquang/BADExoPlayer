@@ -89,7 +89,7 @@ import java.util.Map;
  *       </ul>
  *   <li><b>{@code useStopAction}</b> - Sets whether the stop action is displayed.
  *       <ul>
- *         <li>Corresponding setter: {@link #setUseStopAction(boolean)}
+ *         <li>Corresponding setter: {@link #setUseStopActions(boolean)}
  *         <li>Default: {@code false}
  *       </ul>
  *   <li><b>{@code rewindIncrementMs}</b> - Sets the rewind increment. If set to zero the rewind
@@ -1240,7 +1240,7 @@ public class PlayerNotificationManager {
     if (customActionReceiver != null) {
       stringActions.addAll(customActionReceiver.getCustomActions(player));
     }
-    if (useStopAction) {
+    if (useStopActions) {
       stringActions.add(ACTION_STOP);
     }
     return stringActions;
