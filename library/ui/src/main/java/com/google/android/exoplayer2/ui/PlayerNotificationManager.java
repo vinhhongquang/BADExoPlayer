@@ -393,9 +393,11 @@ public class PlayerNotificationManager {
   private boolean useNavigationActions;
   private boolean useNavigationActionsInCompactView;
   private boolean usePlayPauseActions;
-  private boolean usePreviousActions;
-  private boolean useNextActions;
-  private boolean useStopAction;
+  private boolean usePreviousActions = true;
+  private boolean useNextActions = true;
+  private boolean useStopActions;
+  private boolean useForwardActions = true;
+  private boolean useRewindActions = true;
   private long fastForwardMs;
   private long rewindMs;
   private int badgeIconType;
@@ -829,16 +831,42 @@ public class PlayerNotificationManager {
     }
   }
 
+
+  /**
+   * Sets whether the forward actions should be used.
+   *
+   * @param useForwardActions Whether to use play and pause actions.
+   */
+  public final void setUseForwardActions(boolean useForwardActions) {
+    if (this.useForwardActions != useForwardActions) {
+      this.useForwardActions = useForwardActions;
+      invalidate();
+    }
+  }
+
+
+  /**
+   * Sets whether the rewind actions should be used.
+   *
+   * @param useRewindActions Whether to use play and pause actions.
+   */
+  public final void setUseRewindActions(boolean useRewindActions) {
+    if (this.useRewindActions != useRewindActions) {
+      this.useRewindActions = useRewindActions;
+      invalidate();
+    }
+  }
+
   /**
    * Sets whether the stop action should be used.
    *
-   * @param useStopAction Whether to use the stop action.
+   * @param useStopActions Whether to use the stop action.
    */
-  public final void setUseStopAction(boolean useStopAction) {
-    if (this.useStopAction == useStopAction) {
+  public final void setUseStopActions(boolean useStopActions) {
+    if (this.useStopActions == useStopActions) {
       return;
     }
-    this.useStopAction = useStopAction;
+    this.useStopActions = useStopActions;
     invalidate();
   }
 
@@ -1183,10 +1211,10 @@ public class PlayerNotificationManager {
     Timeline timeline = player.getCurrentTimeline();
     if (!timeline.isEmpty() && !player.isPlayingAd()) {
       timeline.getWindow(player.getCurrentWindowIndex(), window);
-      enablePrevious = usePreviousActions || window.isSeekable || !window.isDynamic || player.hasPrevious();
-      enableRewind = rewindMs > 0;
-      enableFastForward = fastForwardMs > 0;
-      enableNext = useNextActions || window.isDynamic || player.hasNext();
+      enablePrevious = usePreviousActions && (window.isSeekable || !window.isDynamic || player.hasPrevious());
+      enableRewind = useRewindActions && rewindMs > 0;
+      enableFastForward = useForwardActions && fastForwardMs > 0;
+      enableNext = useNextActions && (window.isDynamic || player.hasNext());
     }
 
     List<String> stringActions = new ArrayList<>();
