@@ -1457,7 +1457,10 @@ public class PlayerNotificationManager {
 
     @Override
     public void onTimelineChanged(Timeline timeline, int reason) {
-      postStartOrUpdateNotification();
+      boolean isLiveVideo = player != null && player.isCurrentWindowDynamic();
+      if (!isLiveVideo){
+        postStartOrUpdateNotification();
+      }
     }
 
     @Override
